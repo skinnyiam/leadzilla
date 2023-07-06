@@ -4,9 +4,13 @@ import ProfileComponent from "./profile";
 import Campaign from "./Campaign";
 import Image from "next/image";
 import Link from "next/link";
+type User = {
+  displayName: string;
+  photoURL: string;
+};
 const VerticalNavbar = () => {
   const [activeComponent, setActiveComponent] = useState("profile");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const data = window.localStorage.getItem("userData");
     if (data) {
@@ -39,8 +43,8 @@ const VerticalNavbar = () => {
                   className={`relative aspect-square h-[2.5rem] overflow-hidden rounded-full`}
                 >
                   <Image
-                    src={user?.photoURL ?? ""}
-                    alt={user?.displayName ?? ""}
+                    src={user?.photoURL || ""}
+                    alt={user?.displayName || ""}
                     fill
                   />
                 </div>
